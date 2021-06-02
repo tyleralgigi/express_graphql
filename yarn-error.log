@@ -1,0 +1,54 @@
+Arguments: 
+  C:\Program Files (x86)\nodejs\node.exe C:\Users\tyler\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js start
+
+PATH: 
+  C:\Program Files (x86)\Razer\ChromaBroadcast\bin;C:\Program Files\Razer\ChromaBroadcast\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\dotnet\;C:\Program Files (x86)\Pulse Secure\VC142.CRT\X64\;C:\Program Files (x86)\Pulse Secure\VC142.CRT\X86\;C:\Program Files (x86)\QuickTime\QTSystem\;C:\Program Files\Git\cmd;C:\WINDOWS\system32\config\systemprofile\AppData\Local\Microsoft\WindowsApps;C:\Program Files (x86)\MySQL\bin;C:\Program Files (x86)\MySQL;C:\Program Files\dotnet\;C:\Program Files (x86)\nodejs\;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Users\tyler\AppData\Local\Programs\Python\Python38\Scripts\;C:\Users\tyler\AppData\Local\Programs\Python\Python38\;C:\Users\tyler\AppData\Local\Microsoft\WindowsApps;C:\Users\tyler\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\tyler\AppData\Local\GitHubDesktop\bin;C:\Users\tyler\.dotnet\tools;C:\Users\tyler\AppData\Roaming\npm
+
+Yarn version: 
+  1.22.10
+
+Node version: 
+  14.17.0
+
+Platform: 
+  win32 ia32
+
+Trace: 
+  Invariant Violation: Script must exist
+      at invariant (C:\Users\tyler\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:2314:15)
+      at C:\Users\tyler\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:62387:11
+      at Generator.next (<anonymous>)
+      at step (C:\Users\tyler\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:310:30)
+      at C:\Users\tyler\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:328:14
+      at new Promise (<anonymous>)
+      at new F (C:\Users\tyler\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:5301:28)
+      at C:\Users\tyler\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:307:12
+      at realRunCommand (C:\Users\tyler\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:62472:23)
+      at action.action (C:\Users\tyler\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:62533:16)
+
+npm manifest: 
+  {
+    "name": "graphQL",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "start": ""
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+      "@babel/cli": "^7.14.3",
+      "@babel/core": "^7.14.3",
+      "@babel/node": "^7.14.2",
+      "@babel/preset-env": "^7.14.2",
+      "nodemon": "^2.0.7"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

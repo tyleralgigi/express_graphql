@@ -23,7 +23,7 @@ const startServer = async () =>{
     server.applyMiddleware({app}); //app is from an existing express app
     
     //contecting to mongoDB
-    await mongoose.connect('TESTING', {
+    await mongoose.connect('mongodb+srv://tyler:Football93%21@cluster0.cpci2.mongodb.net/testing', {
         useNewUrlParser: true, 
         useUnifiedTopology: true
     });

@@ -1,4 +1,4 @@
-import { League, overviewPage, match, team } from "./models"
+import { League, overviewPage, match, team, game, player, champ } from "./models"
 
 
 export const resolvers = {
@@ -15,6 +15,9 @@ export const resolvers = {
             //TODO: pagination
             return overviewPage.find({})
         },
+        matches: (root, {MatchId}, context, info) => {
+            return match.find({MatchId: MatchId})
+        }
     },
     league:{
         currentId: async (league, args, context, info) => {
@@ -33,5 +36,8 @@ export const resolvers = {
         Team2: async (match, args, context, info) => {
             return team.findById(match.Team2)
         },
+        games: async (match, args, context, info) => {
+            return game.find({MatchId: match.MatchId})
+        }
     }
 }

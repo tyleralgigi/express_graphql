@@ -15,10 +15,12 @@ export const resolvers = {
             //TODO: pagination
             return overviewPage.find({})
         },
-        matches: (root, {MatchId}, context, info) => {
+        matches: async (root, {MatchId}, context, info) => {
             return match.find({MatchId: MatchId})
         }
     },
+
+    //For models
     league:{
         currentId: async (league, args, context, info) => {
             return (await league.populate('currentId').execPopulate()).currentId
@@ -39,5 +41,26 @@ export const resolvers = {
         games: async (match, args, context, info) => {
             return game.find({MatchId: match.MatchId})
         }
+    },
+    game:{
+        Team1Bans: async (game, args, context, info) => {
+            return (await game.populate('Team1Bans').execPopulate()).Team1Bans
+        },
+        Team2Bans: async (game, args, context, info) => {
+            return (await game.populate('Team2Bans').execPopulate()).Team2Bans
+        },
+        Team1Players: async (game, args, context, info) => {
+            return (await game.populate('Team1Players').execPopulate()).Team1Players
+        },
+    },
+    //TODO NOT WORKING ATM
+    TeamPlayerObj:{
+        playerID: async (PlayerObj, args, context, info) => {
+            return player.findById(PlayerObj.playerID)
+        },
+        champ: async (PlayerObj, args, context, info) => {
+            return champ.findById(PlayerObj.champ)
+        }
     }
+
 }

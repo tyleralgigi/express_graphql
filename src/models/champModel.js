@@ -22,4 +22,4 @@ const champSchema = new mongoose.Schema({
     }
 })
 
-export default mongoose.model('champModel', champSchema,"champs");
+export default mongoose.model('champModel', champSchema,"champ");

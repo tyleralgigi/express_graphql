@@ -7,7 +7,7 @@ export const typeDefs = gql`
         league(name: String!): league
         overviewPages: [overviewPage]
         #TODO: add query to get games from matchId
-        matches(matchId: String!):[match]
+        matches(MatchId: String!):[match]
     },
 
     type league{

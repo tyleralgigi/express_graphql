@@ -1,5 +1,36 @@
 import mongoose from 'mongoose';
 
+
+const TeamPlayerSchema = new mongoose.Schema({
+    playerID: {
+        type: mongoose.Types.ObjectId,
+        ref: 'playerModel'
+    },
+    Champ:{
+        type: mongoose.Types.ObjectId,
+        ref: 'champModel'
+    },
+    kills:{
+            type:String
+    },
+    Deaths:{
+            type:String
+    },
+    Assists:{
+            type:String
+    },
+    CS:{
+            type:String
+    },
+    KeyStoneRune:{
+            type:String
+    },
+    Role:{
+            type:String
+    }
+    
+})
+
 const gameSchema = new mongoose.Schema({
     Team1Bans:[{
         type: mongoose.Types.ObjectId,
@@ -68,62 +99,10 @@ const gameSchema = new mongoose.Schema({
     Winner: {
         type:String,
     },
-    Team1Players:[{
-        playerId: {
-            type: mongoose.Types.ObjectId,
-            ref: 'playerModel'
-        },
-        champ:{
-            type: mongoose.Types.ObjectId,
-            ref: 'champModel'
-        },
-        kills:{
-            type:String
-        },
-        Deaths:{
-            type:String
-        },
-        Assists:{
-            type:String
-        },
-        CS:{
-            type:String
-        },
-        KeyStoneRune:{
-            type:String
-        },
-        Role:{
-            type:String
-        }
-    }],
-    Team2Players:[{
-        playerId: {
-            type: mongoose.Types.ObjectId,
-            ref: 'playerModel'
-        },
-        champ:{
-            type: mongoose.Types.ObjectId,
-            ref: 'champModel'
-        },
-        kills:{
-            type:String
-        },
-        Deaths:{
-            type:String
-        },
-        Assists:{
-            type:String
-        },
-        CS:{
-            type:String
-        },
-        KeyStoneRune:{
-            type:String
-        },
-        Role:{
-            type:String
-        }
-    }]
+    Team1Players:[TeamPlayerSchema],
+    Team2Players:[TeamPlayerSchema]
 })
+
+
 
 export default mongoose.model('gameModel', gameSchema,"games");

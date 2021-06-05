@@ -72,7 +72,7 @@ export const typeDefs = gql`
 
     type TeamPlayerObj{
         playerID: player
-        champ: champ
+        Champ: champ
         Kills: String
         Deaths: String
         Assists: String

@@ -1,4 +1,4 @@
-import { League, overviewPage, match, team, game, player, champ } from "./models"
+import { League, overviewPage, match, team, game, player, champ, TeamPlayer } from "./models"
 
 
 export const resolvers = {
@@ -50,17 +50,20 @@ export const resolvers = {
             return (await game.populate('Team2Bans').execPopulate()).Team2Bans
         },
         Team1Players: async (game, args, context, info) => {
-            return (await game.populate('Team1Players').execPopulate()).Team1Players
+            return (await game
+                .populate('Team1Players.Champ')
+                .populate('Team1Players.playerID')
+                
+                .execPopulate()).Team1Players
         },
-    },
-    //TODO NOT WORKING ATM
-    TeamPlayerObj:{
-        playerID: async (PlayerObj, args, context, info) => {
-            return player.findById(PlayerObj.playerID)
-        },
-        champ: async (PlayerObj, args, context, info) => {
-            return champ.findById(PlayerObj.champ)
+        Team2Players: async (game, args, context, info) => {
+            return (await game
+                .populate('Team2Players.Champ')
+                .populate('Team2Players.playerID')
+                
+                .execPopulate()).Team2Players
         }
-    }
+    },
+
 
 }

@@ -17,7 +17,10 @@ export const resolvers = {
         },
         matches: async (root, {MatchId}, context, info) => {
             return match.find({MatchId: MatchId})
-        }
+        },
+        findPlayer: async (root, {name}, context, info) => {
+            return player.find({summonerName: name})
+        },
     },
 
     //For models

@@ -17,10 +17,12 @@ export const resolvers = {
         },
         matches: async (root, {MatchId}, context, info) => {
             return match.find({MatchId: MatchId})
+            
         },
         findPlayer: async (root, {name}, context, info) => {
             return player.find({summonerName: name})
         },
+
     },
 
     //For models
@@ -30,8 +32,14 @@ export const resolvers = {
         }
     },
     overviewPage:{
-        matches: async (overviewPages, args, context, info) => {
-            return match.find({OverviewPageId: overviewPages.id})
+        matches: async (overviewPages, {status}, context, info) => {
+            if (status != null){
+                return match.find({OverviewPageId: overviewPages.id,
+                status: status}).sort('DateTime_UTC')
+            }else{
+                return match.find({OverviewPageId: overviewPages.id}).sort('DateTime_UTC')
+            }
+           
         }
     },
     match:{

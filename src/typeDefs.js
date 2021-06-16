@@ -7,9 +7,9 @@ export const typeDefs = gql`
         league(name: String!): league
         overviewPages: [overviewPage]
         #TODO: add query to get games from matchId
-        matches(MatchId: String!):[match]
+        matches(MatchId: String!): [match]
         findPlayer(summonerName: String!):player
-    },
+    }
 
     type league{
         nameAbbr: String,
@@ -28,7 +28,7 @@ export const typeDefs = gql`
         IsPlayoffs: String,
         IsOfficial: String,
         Year: String
-        matches: [match]
+        matches(status: String): [match]
     }
 
     type match{

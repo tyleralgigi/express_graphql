@@ -36,7 +36,7 @@ const matchSchema = new mongoose.Schema({
     Tab:{
         type:String
     },
-    Status:{
+    status:{
         type:String
     }
     

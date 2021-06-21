@@ -1,9 +1,8 @@
-import { ApolloServer, gql } from "apollo-server-express";
+import { ApolloServer } from "apollo-server-express";
 import express from 'express';
-import {buildFederatedSchema} from "@apollo/federation";
 import mongoose from 'mongoose';
-import {resolvers} from "./resolvers";
-import {typeDefs} from "./typeDefs";
+import { resolvers } from "./resolvers";
+import { typeDefs } from "./typeDefs";
 
 const startServer = async () =>{
     const app = express();
@@ -27,7 +26,7 @@ const startServer = async () =>{
         useNewUrlParser: true, 
         useUnifiedTopology: true
     });
-
+    mongoose.set('useFindAndModify', false);
     app.listen({port: 80}, () => 
         console.log(`server is ready at http://localhost:80${server.graphqlPath}`)
     );

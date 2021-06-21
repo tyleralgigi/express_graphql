@@ -1,4 +1,4 @@
-import {gql} from "apollo-server-express";
+import { gql } from "apollo-server-express";
 
 export const typeDefs = gql`
     type Query{
@@ -9,6 +9,28 @@ export const typeDefs = gql`
         #TODO: add query to get games from matchId
         matches(MatchId: String!): [match]
         findPlayer(summonerName: String!):player
+    }
+
+    type user{
+        _id: ID!,
+        firstName: String!,
+        lastName: String!,
+        emial: String!,
+        password: String,
+        favoriteTeams: [Team]
+    }
+
+    input userInput {
+        firstName: String!,
+        lastName: String!,
+        email: String!,
+        password: String!,
+    }
+
+
+    type Mutation{
+        createUser(userInput: userInput): user
+        addFavoriteTeam(teamId: ID, userId: ID): user
     }
 
     type league{
@@ -101,6 +123,7 @@ export const typeDefs = gql`
     }
 
     type Team{
+        _id: ID
         image: String,
         name: String,
         shortName: String,

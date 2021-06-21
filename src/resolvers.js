@@ -1,5 +1,5 @@
-import { League, overviewPage, match, team, game, player, champ, TeamPlayer } from "./models"
-
+import { game, League, match, overviewPage, player, team, user } from "./models"
+const bcrypt = require('bcryptjs')
 
 export const resolvers = {
     Query:{
@@ -24,8 +24,71 @@ export const resolvers = {
         },
 
     },
+    Mutation:{
+        createUser: async (root, args, context, info) => {
+            return user.findOne({email: args.userInput.email }).then(User => {
+                if (User) {
+                    throw new Error('User already using email')
+                }
+                return bcrypt
+                .hash(args.userInput.password, 12)
+            }).then(hashedPassword => {
+                    const User = new user({
+                        firstName: args.userInput.firstName,
+                        lastName: args.userInput.lastName,
+                        email: args.userInput.email,
+                        password: hashedPassword
+                    })
+                    return User.save();
+                })
+                .then(result => {
+                    return {...result._doc, password: null, _id: result.id};
+                })
+                .catch(
+                    err => {
+                        console.log(err)
+                        throw err;
+                    }
+                );
+            
+           
+            
+        },
+        addFavoriteTeam: async (root, args, context, info) => {
+            try{
+                return new Promise(function (resolve, reject) {
+                    user.findById(
+                            args.userId
+                        , function (err, user) {
+                            if (err) {
+                                reject(err);
+                            } else {
+                                user.favoriteTeams.push(
+                                    args.teamId
+                                );
+                                user.save().then((result) => {
+                                    resolve(result)
+                                }).catch((err) => {
+                                    reject(err)
+                                });
+                            }
+                        }).catch((err) => {
+                            reject(err)
+                        });
+                   });
 
+            } catch (err){
+                throw err;
+            }
+        },
+    },
     //For models
+    user:{
+        favoriteTeams: async (user, args, context, info) => {
+            return (await user.populate('favoriteTeams').execPopulate()).favoriteTeams
+        }
+    },
+
     league:{
         currentId: async (league, args, context, info) => {
             return (await league.populate('currentId').execPopulate()).currentId

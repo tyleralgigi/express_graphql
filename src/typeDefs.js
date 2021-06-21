@@ -31,6 +31,7 @@ export const typeDefs = gql`
     type Mutation{
         createUser(userInput: userInput): user
         addFavoriteTeam(teamId: ID, userId: ID): user
+        removeFavoriteTeam(teamId: ID, userId: ID): user
     }
 
     type league{

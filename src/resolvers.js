@@ -81,6 +81,33 @@ export const resolvers = {
                 throw err;
             }
         },
+        removeFavoriteTeam: async (root, args, context, info) => {
+            try{
+                return new Promise(function (resolve, reject) {
+                    user.findById(
+                            args.userId
+                        , function (err, user) {
+                            if (err) {
+                                reject(err);
+                            } else {
+                                user.favoriteTeams.pop(
+                                    args.teamId
+                                );
+                                user.save().then((result) => {
+                                    resolve(result)
+                                }).catch((err) => {
+                                    reject(err)
+                                });
+                            }
+                        }).catch((err) => {
+                            reject(err)
+                        });
+                   });
+
+            } catch (err){
+                throw err;
+            }
+        },
     },
     //For models
     user:{

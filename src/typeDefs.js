@@ -2,13 +2,20 @@ import { gql } from "apollo-server-express";
 
 export const typeDefs = gql`
     type Query{
-        hello: String!
         leagues: [league]
         league(name: String!): league
         overviewPages: [overviewPage]
         #TODO: add query to get games from matchId
         matches(MatchId: String!): [match]
         findPlayer(summonerName: String!):player
+        getTeams: [Team]
+        login(email: String!, password: String!): AuthData!
+    }
+
+    type AuthData{
+        userId: ID!,
+        token: String!,
+        tokenExpiration: Int
     }
 
     type user{

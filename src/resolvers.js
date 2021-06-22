@@ -1,9 +1,9 @@
 import { game, League, match, overviewPage, player, team, user } from "./models"
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 
 export const resolvers = {
     Query:{
-        hello: () => "hello",
         leagues: (root, args, context, info) => {
             //TODO: pagination
             return League.find({})
@@ -21,6 +21,29 @@ export const resolvers = {
         },
         findPlayer: async (root, {name}, context, info) => {
             return player.find({summonerName: name})
+        },
+        getTeams:  async (root, args, context, info) => {
+            return team.find({})
+        },
+
+        login: async (root, {email, password}, context, info) => {
+            const User = await user.findOne({email: email});
+            if(!User){
+                throw new Error("User doesnt exist")
+            }
+            const isEqual = await bcrypt.compare(password, User.password);
+            if (!isEqual){
+                throw new Error("Password incorrect")
+            }
+            const token = jwt.sign({userId: User.id, email: email}, 'tyleralgigimadethis');
+            console.log({
+                usedId: User.id,
+                token: token,
+            });
+            return {
+                userId: User.id,
+                token: token,
+            }
         },
 
     },

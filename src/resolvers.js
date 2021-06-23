@@ -1,4 +1,5 @@
-import { game, League, match, overviewPage, player, team, user } from "./models"
+import { SECRET } from "./constants";
+import { game, League, match, overviewPage, player, team, user } from "./models";
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
@@ -19,14 +20,14 @@ export const resolvers = {
             return match.find({MatchId: MatchId})
             
         },
-        findPlayer: async (root, {name}, context, info) => {
+        findPlayer: async (_, {name}, {req, res}) => {
             return player.find({summonerName: name})
         },
         getTeams:  async (root, args, context, info) => {
             return team.find({})
         },
 
-        login: async (root, {email, password}, context, info) => {
+        login: async (root, {email, password}, {req, res}, info) => {
             const User = await user.findOne({email: email});
             if(!User){
                 throw new Error("User doesnt exist")
@@ -35,11 +36,10 @@ export const resolvers = {
             if (!isEqual){
                 throw new Error("Password incorrect")
             }
-            const token = jwt.sign({userId: User.id, email: email}, 'tyleralgigimadethis');
-            console.log({
-                usedId: User.id,
-                token: token,
-            });
+            const token = jwt.sign({userId: User.id, email: email}, SECRET);
+
+            res.cookie('token', token)
+
             return {
                 userId: User.id,
                 token: token,
@@ -77,7 +77,10 @@ export const resolvers = {
            
             
         },
-        addFavoriteTeam: async (root, args, context, info) => {
+        addFavoriteTeam: async (_, args, {req}) => {
+            if (!req.userId){
+                throw new Error('Unauthenicated');
+            }
             try{
                 return new Promise(function (resolve, reject) {
                     user.findById(
@@ -104,7 +107,10 @@ export const resolvers = {
                 throw err;
             }
         },
-        removeFavoriteTeam: async (root, args, context, info) => {
+        removeFavoriteTeam: async (_, args, {req}) => {
+            if (!req.userId){
+                throw new Error('Unauthenicated');
+            }
             try{
                 return new Promise(function (resolve, reject) {
                     user.findById(

@@ -44,7 +44,6 @@ const startServer = async () =>{
     server.applyMiddleware({app}); //app is from an existing express app
     
     
-
     mongoose.set('useFindAndModify', false);
 
     app.listen({port: 80}, () => 
